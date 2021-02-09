@@ -1,4 +1,4 @@
-# Codebase for "Clairvoyance: a Unified, End-to-End AutoML Pipeline for Medical Time Series"
+# Clairvoyance: a Unified, End-to-End AutoML Pipeline for Medical Time Series
 
 ![Clairvoyance Logo](tutorial/figure/clairvoyance_logo.png)
 
