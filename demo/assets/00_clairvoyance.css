@@ -1,0 +1,52 @@
+#clairvoyance-logo {
+    width: 100%;
+}
+
+#clairvoyance-lead {
+    padding-left: 10px;
+}
+
+#clairvoyance-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+    padding: 2rem 1rem;
+    background-color: #303030;
+}
+
+#page-content {
+    margin-left: 18rem;
+    margin-right: 2rem;
+    padding: 2rem 1rem;
+}
+
+.clairvoyance-top-panel-dropdown .clairvoyance-label {
+    margin-left: 20px; 
+    margin-right: 10px;
+    line-height: 2rem;
+}
+
+.clairvoyance-top-panel-dropdown .clairvoyance-dropdown {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.nav.nav-tabs > .nav-item {
+    cursor: pointer;
+}
+
+#static-data-table {
+    max-height: 400px;
+    overflow-y: hidden;
+}
+
+#tabs {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.plotlyjsicon {
+    display: none
+}

@@ -1,0 +1,14 @@
+tmp/
+__pycache__/
+*.pyc
+.pylintrc
+
+.vscode/
+demo/wd
+jupyter/
+docs/_build/
+
+datasets/data/**/*.gz
+datasets/data/**/*.csv
+datasets/data/**/*.npy
+datasets/data/**/*.npz
