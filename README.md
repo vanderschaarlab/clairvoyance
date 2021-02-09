@@ -1,6 +1,6 @@
 # Codebase for "Clairvoyance: a Unified, End-to-End AutoML Pipeline for Medical Time Series"
 
-![Block diagram of Clairvoyance](tutorial/figure/clairvoyance_logo.png){:height="50px" width="200px"}
+![Clairvoyance Logo](tutorial/figure/clairvoyance_logo.png)
 
 Authors: ML-AIM (www.vanderschaar-lab.com)
 
@@ -21,7 +21,7 @@ app.py contains web-based clinical decision support system.
 ## Example: Time-series prediction 
 
 To run the pipeline for training and evaluation on time-series 
-prediction framwork, simply run python3 -m api/main_api_prediction.py or take a look 
+prediction framework, simply run python3 -m api/main_api_prediction.py or take a look 
 at the following jupyter-notebook file (tutorial/tutorial_prediction.ipynb).
 
 Note that any model architecture can be used as the predictor model such as
@@ -56,7 +56,7 @@ predictor model is to have fit and predict functions as its subfunctions.
 -   temporal_imputation_model: mean, median, linear, quadratic, cubic, spline, mrnn, tgain
             
 -   feature_selection_model: greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
--   feature_number: selected featuer number
+-   feature_number: selected feature number
       
 -   model_name: rnn, gru, lstm, attention, tcn, transformer
 -   h_dim: hidden dimensions
