@@ -44,20 +44,16 @@ predictor model is to have fit and predict functions as its subfunctions.
 ### Command inputs:
 
 -   data_names: mimic, ward, cf    
-
 -   normalization: minmax, standard, None
 -   one_hot_encoding: input features that need to be one-hot encoded
 -   problem: 'one-shot' or 'online'
 -   max_seq_len: maximum sequence length after padding
 -   label_name: the column name for the label(s)
 -   treatment: the column name for treatments
-      
 -   static_imputation_model: mean, median, mice, missforest, knn, gain
--   temporal_imputation_model: mean, median, linear, quadratic, cubic, spline, mrnn, tgain
-            
+-   temporal_imputation_model: mean, median, linear, quadratic, cubic, spline, mrnn, tgain   
 -   feature_selection_model: greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
 -   feature_number: selected feature number
-      
 -   model_name: rnn, gru, lstm, attention, tcn, transformer
 -   h_dim: hidden dimensions
 -   n_layer: layer number
@@ -68,7 +64,6 @@ predictor model is to have fit and predict functions as its subfunctions.
 -   static_mode: how to utilize static features (concatenate or None)
 -   time_mode: how to utilize time information (concatenate or None)
 -   task: classification or regression
-      
 -   uncertainty_model_name: uncertainty estimation model name (ensemble)
 -   interpretor_model_name: interpretation model name (tinvase)
 -   metric_name: auc, apr, mae, mse
