@@ -1,0 +1,33 @@
+name: clv
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - cudatoolkit=10.0.130
+  - cudnn=7.6.5.32
+  - gpyopt=1.2.6
+  - ignite=0.4.4
+  - jupyter=1.0.0
+  - jupyterlab=2.2.6
+  - matplotlib=3.3.4
+  - pandas=1.2.3
+  - pip=21.0.1
+  - python=3.7.10
+  - pytorch=1.4.0
+  - scipy=1.6.1
+  - texttable=1.6.3
+  - tqdm=4.59.0
+  - pip:
+    - astroid==2.5.1
+    - dash==1.19.0
+    - dash-bootstrap-components==0.11.3
+    - dataclasses==0.6
+    - future==0.18.2
+    - keras==2.3.1
+    - keras-tcn==3.3.1
+    - missingpy==0.2.0
+    - numpy==1.18.5
+    - scikit-learn==0.23.2
+    - tensorflow==1.15.5
+    - tensorflow-gpu==1.15.5

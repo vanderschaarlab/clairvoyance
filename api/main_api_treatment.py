@@ -20,7 +20,7 @@ Step 4: Impute dataset
     (1) Temporal imputation (8 options): mean, median, linear, quadratic, cubic, spline, mrnn, tgain
 
 Step 5: Feature selection
-    - feature selection method (5 options): greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
+    - feature selection method (5 options): greedy-addition, greedy-deletion, recursive-addition, recursive-deletion, None
 
 Step 6: Treatment effect model fit and predict
     - predictive models (3 options): CRN (Counterfactual Recurrent Network), RMSN (Recurrent Marginal Structural Networks),
@@ -82,7 +82,7 @@ def main(args):
             - temporal_imputation_model: mean, median, linear, quadratic, cubic, spline, mrnn, tgain
 
         - feature selection parameters:
-            - feature_selection_model: greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
+            - feature_selection_model: greedy-addition, greedy-deletion, recursive-addition, recursive-deletion, None
             - feature_number: selected feature number
 
         - treatment effects model parameters:

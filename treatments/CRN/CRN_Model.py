@@ -258,14 +258,14 @@ class CRN_Model(BaseEstimator, PredictorMixin):
             - model_name: name of saved model
         """
         encoder_model_name = "encoder_" + model_name
-        self.encoder_model.save_network(model_dir, encoder_model_name)
+        self.encoder_model.save_network(model_dir, encoder_model_name, DEBUG_scope_prefix="crn_model/")
         pickle.dump(self.encoder_params, open(os.path.join(model_dir, "encoder_params_" + model_name + ".pkl"), "wb"))
         pickle.dump(
             self.hyperparams_encoder, open(os.path.join(model_dir, "hyperparams_encoder_" + model_name + ".pkl"), "wb")
         )
 
         decoder_model_name = "decoder_" + model_name
-        self.decoder_model.save_network(model_dir, decoder_model_name)
+        self.decoder_model.save_network(model_dir, decoder_model_name, DEBUG_scope_prefix="crn_model/")
         pickle.dump(self.decoder_params, open(os.path.join(model_dir, "decoder_params_" + model_name + ".pkl"), "wb"))
         pickle.dump(
             self.hyperparams_decoder, open(os.path.join(model_dir, "hyperparams_decoder_" + model_name + ".pkl"), "wb")
@@ -286,7 +286,7 @@ class CRN_Model(BaseEstimator, PredictorMixin):
         encoder_model_name = "encoder_" + model_name
 
         encoder_model = CRN_Base(encoder_hyperparams, encoder_params, task=self.task)
-        encoder_model.load_model(model_name=encoder_model_name, model_folder=model_dir)
+        encoder_model.load_model(model_name=encoder_model_name, model_folder=model_dir, DEBUG_scope_prefix="crn_model/")
 
         decoder_params = pickle.load(open(os.path.join(model_dir, "decoder_params_" + model_name + ".pkl"), "rb"))
         decoder_hyperparams = pickle.load(
@@ -294,7 +294,7 @@ class CRN_Model(BaseEstimator, PredictorMixin):
         )
         decoder_model_name = "decoder_" + model_name
         decoder_model = CRN_Base(decoder_hyperparams, decoder_params, b_train_decoder=True, task=self.task)
-        decoder_model.load_model(model_name=decoder_model_name, model_folder=model_dir)
+        decoder_model.load_model(model_name=decoder_model_name, model_folder=model_dir, DEBUG_scope_prefix="crn_model/")
 
         self.encoder_model = encoder_model
         self.decoder_model = decoder_model

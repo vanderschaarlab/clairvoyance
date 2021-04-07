@@ -1,3 +1,6 @@
+.git
+# -------------------------------------------------------------------------------- #
+
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
@@ -8,8 +11,7 @@ __pycache__/
 jupyter/
 docs/_build/
 
-app/wd
-app/tmp/
+app
 
 datasets/data/**/*.gz
 datasets/data/**/*.csv

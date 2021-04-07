@@ -232,14 +232,14 @@ class CRN_Base:
                     )
                 )
 
-    def load_model(self, model_name, model_folder):
+    def load_model(self, model_name, model_folder, DEBUG_scope_prefix=""):  # TODO: [*] Resolve this DEBUG kludge.
         """Load trained CRN model.
 
         Args:
             - model_name: name of saved model.
             - model_folder: directory with saved model.
         """
-        with tf.variable_scope(self.name_scope, reuse=tf.AUTO_REUSE):
+        with tf.variable_scope(DEBUG_scope_prefix+self.name_scope, reuse=tf.AUTO_REUSE):
             self.init_model()
             self.balancing_representation = self.build_balancing_representation()
             self.treatment_prob_predictions = self.build_treatment_assignments_one_hot(self.balancing_representation)
@@ -255,7 +255,7 @@ class CRN_Base:
             self.sess = tf.Session(config=tf_config)
             self.sess.run(tf.global_variables_initializer())
             checkpoint_name = model_name
-            self.load_network(self.sess, model_folder, checkpoint_name)
+            self.load_network(self.sess, model_folder, checkpoint_name, DEBUG_scope_prefix=DEBUG_scope_prefix)
 
     def build_feed_dictionary(
         self,
@@ -629,20 +629,20 @@ class CRN_Base:
 
         return validation_loss, validation_loss_outcomes, validation_loss_treatments
 
-    def save_network(self, model_dir, checkpoint_name):
+    def save_network(self, model_dir, checkpoint_name, DEBUG_scope_prefix=""):  # TODO: [*]
         """Save trained network.
 
         Args:
             - model_dir: directory where to save the model.
             - checkpoint_name: saved model name.
         """
-        varlist = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=self.name_scope)
+        varlist = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=DEBUG_scope_prefix+self.name_scope)
         saver = tf.train.Saver(var_list=varlist, max_to_keep=100000)
 
         save_path = saver.save(self.sess, os.path.join(model_dir, "{0}.ckpt".format(checkpoint_name)))
         logging.info("Model saved to: {0}".format(save_path))
 
-    def load_network(self, tf_session, model_dir, checkpoint_name):
+    def load_network(self, tf_session, model_dir, checkpoint_name, DEBUG_scope_prefix=""):  # TODO: [*]
         """Load trained network into a TensorFlow session.
 
         Args:
@@ -653,6 +653,6 @@ class CRN_Base:
         load_path = os.path.join(model_dir, "{0}.ckpt".format(checkpoint_name))
         logging.info("Restoring model from {0}".format(load_path))
 
-        varlist = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=self.name_scope)
+        varlist = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=DEBUG_scope_prefix+self.name_scope)
         saver = tf.train.Saver(var_list=varlist)
         saver.restore(tf_session, load_path)

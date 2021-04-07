@@ -1,8 +1,0 @@
-[client]
-
-caching = true
-
-[server]
-
-maxUploadSize = 100
-runOnSave = true

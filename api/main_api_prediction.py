@@ -20,7 +20,7 @@ Step 4: Impute dataset
     (1) Temporal imputation (8 options): mean, median, linear, quadratic, cubic, spline, mrnn, tgain
     
 Step 5: Feature selection
-    - feature selection method (5 options): greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
+    - feature selection method (5 options): greedy-addition, greedy-deletion, recursive-addition, recursive-deletion, None
     
 Step 6: Fit and Predict
     - predictive models (6 options): lstm, gru, rnn, attention, tcn, transformer
@@ -85,7 +85,7 @@ def main(args):
             - temporal_imputation_model: mean, median, linear, quadratic, cubic, spline, mrnn, tgain
                         
         - feature selection parameters:
-            - feature_selection_model: greedy-addtion, greedy-deletion, recursive-addition, recursive-deletion, None
+            - feature_selection_model: greedy-addition, greedy-deletion, recursive-addition, recursive-deletion, None
             - feature_number: selected feature number
             
         - predictor_parameters:
@@ -102,7 +102,7 @@ def main(args):
             - task: classification or regression
             
         - uncertainty_model_name: uncertainty estimation model name (ensemble)
-        - interpretor_model_name: interpretation model name (tinvase)
+        - interpretation_model_name: interpretation model name (tinvase)
         - metric_name: auc, apr, mae, mse
     """
     #%% Step 0: Set basic parameters
