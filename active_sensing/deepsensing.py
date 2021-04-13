@@ -209,7 +209,7 @@ class DeepSensing(BaseEstimator, PredictorMixin):
         y_hat = self.deep_sensing_class.predict(dataset, test_split="test")
         selection = 1 * (y_hat > threshold)
 
-        return selection
+        return selection, y_hat
 
     def save_model(self, model_path):
         """Save the model to model_path

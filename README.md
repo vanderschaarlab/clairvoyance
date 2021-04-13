@@ -37,14 +37,14 @@ There are currently two ways of installing the required dependencies: using Dock
     * Assumes Nvidia drivers are correctly installed on your system.
 3. To install the Clairvoyance Docker image and to run the Docker container as a terminal, execute the below from the Clairvoyance repository root:
     ```bash
-    $ docker run -i -t --gpus all --network host -v $(pwd)/datasets/data:/home/clvusr/clairvoyance/datasets/data clairvoyancedocker/test-clv
+    $ docker run -i -t --gpus all --network host -v $(pwd)/datasets/data:/home/clvusr/clairvoyance/datasets/data clairvoyancedocker/clv
     ```
     * Explanation of the `docker run` arguments:
         * `-i -t`: Run a terminal session.
         * `--gpus all`: **\[Required for CUDA-enabled installation only\]**, passes your GPU(s) to the Docker container, otherwise skip this option.
         * `--network host`: Use your machine's network and forward ports. Could alternatively publish ports, e.g. `-p 8050:8050 -p 8888:8888`.
         * `-v $(pwd)/datasets/data:/home/clvusr/clairvoyance/datasets/data`: Share directory/ies with the Docker container as volumes, e.g. data.
-        * `clairvoyancedocker/test-clv`: Specifies Clairvoyance Docker image.
+        * `clairvoyancedocker/clv`: Specifies Clairvoyance Docker image.
 4. Run all following Clairvoyance API commands, jupyter notebooks etc. from within this Docker container.
 
 ### Conda installation
