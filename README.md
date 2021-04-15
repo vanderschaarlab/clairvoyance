@@ -33,19 +33,26 @@ There are currently two ways of installing the required dependencies: using Dock
     * [A useful example of the installation process](https://www.celantur.com/blog/run-cuda-in-docker-on-linux/)
 
 1. Install Docker on your system: https://docs.docker.com/get-docker/.
-2. **\[Required for CUDA-enabled installation only\]** Install *Nvidia container runtime*: https://github.com/NVIDIA/nvidia-container-runtime/.
+1. **\[Required for CUDA-enabled installation only\]** Install *Nvidia container runtime*: https://github.com/NVIDIA/nvidia-container-runtime/.
     * Assumes Nvidia drivers are correctly installed on your system.
-3. To install the Clairvoyance Docker image and to run the Docker container as a terminal, execute the below from the Clairvoyance repository root:
+1. Get the latest Clairvoyance Docker image:
+    ```bash
+    $ docker pull clairvoyancedocker/clv:latest
+    ```
+1. To run the Docker container as a terminal, execute the below from the Clairvoyance repository root:
     ```bash
     $ docker run -i -t --gpus all --network host -v $(pwd)/datasets/data:/home/clvusr/clairvoyance/datasets/data clairvoyancedocker/clv
     ```
     * Explanation of the `docker run` arguments:
         * `-i -t`: Run a terminal session.
         * `--gpus all`: **\[Required for CUDA-enabled installation only\]**, passes your GPU(s) to the Docker container, otherwise skip this option.
-        * `--network host`: Use your machine's network and forward ports. Could alternatively publish ports, e.g. `-p 8050:8050 -p 8888:8888`.
+        * `--network host`: Use your machine's network and forward ports. Could alternatively publish ports, e.g. `-p 8888:8888`.
         * `-v $(pwd)/datasets/data:/home/clvusr/clairvoyance/datasets/data`: Share directory/ies with the Docker container as volumes, e.g. data.
         * `clairvoyancedocker/clv`: Specifies Clairvoyance Docker image.
-4. Run all following Clairvoyance API commands, jupyter notebooks etc. from within this Docker container.
+    * If using Windows: 
+        * Use PowerShell and first run the command `$pwdwin = $(pwd).Path`. Then use `$pwdwin` instead of `$(pwd)` in the `docker run` command.
+        * Due to how Docker networking works on Windows, replace `--network host` with `-p 8888:8888`.
+1. Run all following Clairvoyance API commands, jupyter notebooks etc. from within this Docker container.
 
 ### Conda installation
 Conda installation has been tested on Ubuntu 20.04 only.
@@ -103,9 +110,10 @@ $ cd datasets/mimic_data_extraction && python extract_antibiotics_dataset.py
 ## Usage
 * To run tutorials:
     * Launch jupyter lab: `$ jupyter-lab`.
+        * If using Windows and following the Docker installation method, run `jupyter-lab --ip="0.0.0.0"`.
     * Open jupyter lab in the browser by following the URL with the token.
     * Navigate to `tutorial/` and run a tutorial of your choice.
-5. To run Clairvoyance API from the command line, execute the appropriate command from within the Docker terminal (see example command below).
+* To run Clairvoyance API from the command line, execute the appropriate command from within the Docker terminal (see example command below).
 
 ## Example: Time-series prediction 
 To run the pipeline for training and evaluation on time-series 

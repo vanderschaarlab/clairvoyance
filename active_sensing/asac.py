@@ -237,7 +237,7 @@ class Asac(BaseEstimator, PredictorMixin):
         test_x, _, second_test_x = self._data_preprocess(dataset, fold, test_split)
         # Model prediction
         test_s_hat, _ = self.asac_model.predict([test_x, second_test_x])
-        return np.round(test_s_hat)
+        return np.round(test_s_hat), None
 
     def save_model(self, model_path):
         """Save the model to model_path
