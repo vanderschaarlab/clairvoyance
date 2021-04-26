@@ -51,7 +51,8 @@ There are currently two ways of installing the required dependencies: using Dock
         * `clairvoyancedocker/clv`: Specifies Clairvoyance Docker image.
     * If using Windows: 
         * Use PowerShell and first run the command `$pwdwin = $(pwd).Path`. Then use `$pwdwin` instead of `$(pwd)` in the `docker run` command.
-        * Due to how Docker networking works on Windows, replace `--network host` with `-p 8888:8888`.
+    * If using Windows or Mac:
+        * Due to how Docker networking works, replace `--network host` with `-p 8888:8888`.
 1. Run all following Clairvoyance API commands, jupyter notebooks etc. from within this Docker container.
 
 ### Conda installation
@@ -110,7 +111,7 @@ $ cd datasets/mimic_data_extraction && python extract_antibiotics_dataset.py
 ## Usage
 * To run tutorials:
     * Launch jupyter lab: `$ jupyter-lab`.
-        * If using Windows and following the Docker installation method, run `jupyter-lab --ip="0.0.0.0"`.
+        * If using Windows or Mac and following the Docker installation method, run `jupyter-lab --ip="0.0.0.0"`.
     * Open jupyter lab in the browser by following the URL with the token.
     * Navigate to `tutorial/` and run a tutorial of your choice.
 * To run Clairvoyance API from the command line, execute the appropriate command from within the Docker terminal (see example command below).
