@@ -1,16 +1,18 @@
-# Clairvoyance: a Unified, End-to-End AutoML Pipeline for Medical Time Series
+# Clairvoyance: A Pipeline Toolkit for Medical Time Series
 
-![Clairvoyance Logo](tutorial/figure/clairvoyance_logo.png)
+<a href="https://www.vanderschaar-lab.com/"><img src="assets/lab-logo-wtext-darktext.svg" width="500px" ></a>
+</br>
+<a href="https://www.vanderschaar-lab.com/clairvoyance-alpha-the-first-unified-end-to-end-automl-pipeline-for-time-series-data/"><img src="assets/clairvoyance-logo-light-hc.svg" width="320px" ></a>
 
-Authors: van der Schaar Lab (www.vanderschaar-lab.com)
+**Authors: [van der Schaar Lab](www.vanderschaar-lab.com)**
 
-This repository contains implementations of Clairvoyance: a unified, end-to-end AutoML 
-pipeline for medical time series for the following applications.
+This repository contains implementations of *Clairvoyance: A Pipeline Toolkit for Medical Time Series* for the following applications.
 
 - Time-series prediction (one-shot and online)
 - Transfer learning
 - Individualized time-series treatment effects (ITE) estimation
 - Active sensing on time-series data
+- AutoML
 
 All API files for those applications can be found in [`/api`](/api) folder. 
 All tutorials for those applications can be found in [`/tutorial`](/tutorial) folder.
@@ -182,3 +184,37 @@ predictor model is to have fit and predict functions as its subfunctions.
     - Model performance
     - Prediction uncertainty
     - Prediction interpretation
+
+## Citation
+
+To cite Clairvoyance in your publications, please use the following reference.
+
+> Daniel Jarrett, Jinsung Yoon, Ioana Bica, Zhaozhi Qian, Ari Ercole, and Mihaela van der Schaar (2021). *Clairvoyance: A Pipeline Toolkit for Medical Time Series.* In International Conference on Learning Representations. Available at: https://openreview.net/forum?id=xnC8YwKUE3k.
+
+You can also use the following Bibtex entry.
+
+~~~bib
+@inproceedings{
+  jarrett2021clairvoyance,
+  title={Clairvoyance: A Pipeline Toolkit for Medical Time Series},
+  author={Daniel Jarrett and Jinsung Yoon and Ioana Bica and Zhaozhi Qian and Ari Ercole and Mihaela van der Schaar},
+  booktitle={International Conference on Learning Representations},
+  year={2021},
+  url={https://openreview.net/forum?id=xnC8YwKUE3k}
+}
+~~~
+
+To cite the [Clairvoyance alpha blog post](https://www.vanderschaar-lab.com/clairvoyance-alpha-the-first-unified-end-to-end-automl-pipeline-for-time-series-data/), please use:
+
+>  van Der Schaar, M., Yoon, J., Qian, Z., Jarrett, D., & Bica, I. (2020). *clairvoyance alpha: the first pipeline toolkit for medical time series.* [Webpages]. https://doi.org/10.17863/CAM.70020
+
+~~~bib
+@misc{https://doi.org/10.17863/cam.70020,
+  doi = {10.17863/CAM.70020},
+  url = {https://www.repository.cam.ac.uk/handle/1810/322563},
+  author = {Van Der Schaar,  Mihaela and Yoon,  Jinsung and Qian,  Zhaozhi and Jarrett,  Dan and Bica,  Ioana},
+  title = {clairvoyance alpha: the first pipeline toolkit for medical time series},
+  publisher = {Apollo - University of Cambridge Repository},
+  year = {2020}
+}
+~~~

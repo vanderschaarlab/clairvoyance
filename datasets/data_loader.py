@@ -34,11 +34,9 @@ class CSVLoader(BaseEstimator, DataLoaderMixin):
         s = self._load_static(only_nrows=static_only_nrows)
         x = self._load_temporal(only_nrows=temporal_only_nrows)
 
-        # -----
-        s["id"] = s["id"].astype(int)
+        # Sort in expected order.
         s.sort_values(by="id", inplace=True)
-        x.sort_values(by="id", inplace=True)
-        # -----
+        x.sort_values(by=["id", "time"], inplace=True)
 
         return PandasDataset(s, x)
 
