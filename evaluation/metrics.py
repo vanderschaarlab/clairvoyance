@@ -41,27 +41,33 @@ class Metrics:
         """
         # Metrics should be among 'auc', 'apr', 'mse', 'mae'
         assert metric_name in ["auc", "apr", "mse", "mae"]
-        # Initialize the output
-        result = 0
         # Exclude padding part
         idx = np.where(y >= 0)[0]
-        y = y[idx]
-        y_hat = y_hat[idx]
-        # Compute performances
-        if metric_name == "auc":
-            if len(np.unique(y)) == 2:
-                y = y.astype(bool)
-                result = roc_auc_score(y, y_hat)
-        elif metric_name == "apr":
-            if len(np.unique(y)) == 2:
-                y = y.astype(bool)
-                result = average_precision_score(y, y_hat)
-        elif metric_name == "mse":
-            result = mean_squared_error(y, y_hat)
-        elif metric_name == "mae":
-            result = mean_absolute_error(y, y_hat)
-
-        return result
+        data_point_count = len(idx)
+        if len(idx) > 0:
+            y = y[idx]
+            y_hat = y_hat[idx]
+            # Compute performances
+            if metric_name == "auc":
+                if len(np.unique(y)) == 2:
+                    y = y.astype(bool)
+                    result = roc_auc_score(y, y_hat)
+                else:
+                    result = 0  # TODO: Think about this.
+            elif metric_name == "apr":
+                if len(np.unique(y)) == 2:
+                    y = y.astype(bool)
+                    result = average_precision_score(y, y_hat)
+                else:
+                    result = 0  # TODO: Think about this.
+            elif metric_name == "mse":
+                result = mean_squared_error(y, y_hat)
+            elif metric_name == "mae":
+                result = mean_absolute_error(y, y_hat)
+            # No else clause as assertion above checks `metric_name`.
+        else:
+            result = np.nan
+        return result, data_point_count
 
     def evaluate(self, y, y_hat):
         """Returns the prediction performance.
@@ -75,6 +81,7 @@ class Metrics:
         """
         # Initialize the output
         result = dict()
+        data_point_count = dict()
         # For each label (handling multi-label settings)
         for l_idx in range(len(self.label_sets)):
             # For each metric
@@ -82,17 +89,20 @@ class Metrics:
                 # Online
                 if self.problem == "online":
                     result_temp = np.zeros([y.shape[1]])
+                    data_point_count_temp = np.zeros([y.shape[1]])
                     # For each time stamp
                     for t_idx in range(y.shape[1]):
-                        result_temp[t_idx] = self.metric_each(
+                        result_temp[t_idx], data_point_count_temp[t_idx] = self.metric_each(
                             y[:, t_idx, l_idx], y_hat[:, t_idx, l_idx], self.metric_sets[m_idx]
                         )
                 # One-shot
                 elif self.problem == "one-shot":
-                    result_temp = self.metric_each(y[:, l_idx], y_hat[:, l_idx], self.metric_sets[m_idx])
+                    result_temp, data_point_count_temp = self.metric_each(y[:, l_idx], y_hat[:, l_idx], self.metric_sets[m_idx])
                 # Save results for each metric and label
                 result[self.label_sets[l_idx] + " + " + self.metric_sets[m_idx]] = result_temp
+                data_point_count[self.label_sets[l_idx] + " + " + self.metric_sets[m_idx]] = data_point_count_temp
 
+        self.data_point_count = data_point_count  # TODO: Deal with this properly.
         return result
 
 

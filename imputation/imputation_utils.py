@@ -18,10 +18,10 @@ def rounding(data, data_imputed):
         - data_imputed: imputed data after rounding
     """
     for i in range(data.shape[1]):
-        # If the feature is categorical (category < 20)
+        # If the feature is categorical (category < 20)  # TODO: This is questionable - arbitrary threshold!
         if len(np.unique(data[:, i])) < 20:
             # If values are integer
-            if sum(np.round(data[:, i]) == data[:, i]) == len(data[:, i]):
+            if np.all(np.round(data[:, i]) == data[:, i]):
                 # Rounding
                 data_imputed[:, i] = np.round(data_imputed[:, i])
 

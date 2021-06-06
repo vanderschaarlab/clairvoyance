@@ -9,7 +9,7 @@ import os
 import tensorflow as tf
 import numpy as np
 from datetime import datetime
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint
 from utils import binary_cross_entropy_loss, mse_loss
 from tensorflow.keras.layers import Dense, TimeDistributed
 from tensorflow.keras import Input, Model
@@ -130,21 +130,21 @@ class TemporalCNN(BaseEstimator, PredictorMixin):
         # Input
         inputs = Input(shape=(seq_len, dim,))
         # First layer
-        tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True)(inputs)
+        tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True, use_skip_connections=False)(inputs)
 
         # Multi-layer
         for _ in range(self.n_layer - 2):
-            tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True)(tcn_out)
+            tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True, use_skip_connections=False)(tcn_out)
 
         # For classification
         if self.task == "classification":
             # For online prediction
             if dim_y == 3:
-                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True)(tcn_out)
+                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True, use_skip_connections=False)(tcn_out)
                 output = TimeDistributed(Dense(y.shape[-1], activation="sigmoid", name="output"))(tcn_out)
             # For one-shot prediction
             elif dim_y == 2:
-                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=False)(tcn_out)
+                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=False, use_skip_connections=False)(tcn_out)
                 output = Dense(y.shape[-1], activation="sigmoid", name="output")(tcn_out)
             # Model define and compile
             tcn_model = Model(inputs=[inputs], outputs=[output])
@@ -153,11 +153,11 @@ class TemporalCNN(BaseEstimator, PredictorMixin):
         elif self.task == "regression":
             # For online prediction
             if dim_y == 3:
-                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True)(tcn_out)
+                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=True, use_skip_connections=False)(tcn_out)
                 output = TimeDistributed(Dense(y.shape[-1], activation="linear", name="output"))(tcn_out)
             # For one-shot prediction
             elif dim_y == 2:
-                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=False)(tcn_out)
+                tcn_out = TCN(nb_filters=self.h_dim, dilations=dilations, return_sequences=False, use_skip_connections=False)(tcn_out)
                 output = Dense(y.shape[-1], activation="linear", name="output")(tcn_out)
             # Model define and compile
             tcn_model = Model(inputs=[inputs], outputs=[output])

@@ -35,6 +35,7 @@ class MRnn:
 
         # Set Parameters
         self.no, self.seq_len, self.dim = x.shape
+        self.no_predict = None  # The 0th dimension for the *predict* step.
         self.save_file_directory = save_file_directory
 
     def rnn_train(self, x, m, t, f, model_parameters):
@@ -115,8 +116,15 @@ class MRnn:
         Returns:
             - imputed_x: imputed data by rnn block
         """
+        # Check `x` dimensions.
+        self.no_predict, seq_len, dim = x.shape
+        assert seq_len == self.seq_len, "Sequence length dimension (1) of `x` passed to `rnn_predict()` "\
+            f"differs from that of `x` used in `rnn_train()` ({seq_len} vs {self.seq_len,})"
+        assert dim == self.dim, "Features dimension (2) of `x` passed to `rnn_predict()` "\
+            f"differs from that of `x` used in `rnn_train()` ({dim} vs {self.dim})"
+
         # Output Initialization
-        imputed_x = np.zeros([self.no, self.seq_len, self.dim])
+        imputed_x = np.zeros([self.no_predict, self.seq_len, self.dim])
 
         # For each feature
         for f in tqdm(range(self.dim)):
@@ -124,10 +132,10 @@ class MRnn:
             temp_input = np.dstack((x[:, :, f], m[:, :, f], t[:, :, f]))
             temp_input_reverse = np.flip(temp_input, 1)
 
-            forward_input = np.zeros([self.no, self.seq_len, 3])
+            forward_input = np.zeros([self.no_predict, self.seq_len, 3])
             forward_input[:, 1:, :] = temp_input[:, : (self.seq_len - 1), :]
 
-            backward_input = np.zeros([self.no, self.seq_len, 3])
+            backward_input = np.zeros([self.no_predict, self.seq_len, 3])
             backward_input[:, 1:, :] = temp_input_reverse[:, : (self.seq_len - 1), :]
 
             save_file_name = self.save_file_directory + "/rnn_feature_" + str(f + 1) + "/"
@@ -148,7 +156,7 @@ class MRnn:
                         :, :, f
                     ]
 
-        # Initial poitn interpolation for better performance
+        # Initial point interpolation for better performance
         imputed_x = initial_point_interpolation(x, m, t, imputed_x, median_vals)
 
         return imputed_x
@@ -258,9 +266,9 @@ class MRnn:
         print("Finish M-RNN imputations with RNN")
 
         # Reshape the data for FC predict
-        x = np.reshape(x, [self.no * self.seq_len, self.dim])
-        rnn_imputed_x = np.reshape(rnn_imputed_x, [self.no * self.seq_len, self.dim])
-        m = np.reshape(m, [self.no * self.seq_len, self.dim])
+        x = np.reshape(x, [self.no_predict * self.seq_len, self.dim])
+        rnn_imputed_x = np.reshape(rnn_imputed_x, [self.no_predict * self.seq_len, self.dim])
+        m = np.reshape(m, [self.no_predict * self.seq_len, self.dim])
 
         save_file_name = self.save_file_directory + "/fc_feature/"
 
@@ -279,9 +287,9 @@ class MRnn:
                 fc_imputed_x = sess.run(outputs, feed_dict={x_input: x, target: rnn_imputed_x, mask: m})
 
         # Reshape imputed data to 3d array
-        fc_imputed_x = np.reshape(fc_imputed_x, [self.no, self.seq_len, self.dim])
-        m = np.reshape(m, [self.no, self.seq_len, self.dim])
-        x = np.reshape(x, [self.no, self.seq_len, self.dim])
+        fc_imputed_x = np.reshape(fc_imputed_x, [self.no_predict, self.seq_len, self.dim])
+        m = np.reshape(m, [self.no_predict, self.seq_len, self.dim])
+        x = np.reshape(x, [self.no_predict, self.seq_len, self.dim])
 
         fc_imputed_x = fc_imputed_x * (1 - m) + x * m
         fc_imputed_x = initial_point_interpolation(x, m, t, fc_imputed_x, median_vals)

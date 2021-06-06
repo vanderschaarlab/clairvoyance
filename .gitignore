@@ -9,9 +9,15 @@ jupyter/
 docs/_build/
 
 app/wd
-app/tmp/
+
+tmp/
 
 datasets/data/**/*.gz
 datasets/data/**/*.csv
 datasets/data/**/*.npy
 datasets/data/**/*.npz
+
+results/
+experiments/output
+
+.flake8
