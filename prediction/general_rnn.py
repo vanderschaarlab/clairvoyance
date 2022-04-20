@@ -265,6 +265,7 @@ class GeneralRNN(BaseEstimator, PredictorMixin):
             {"name": "h_dim", "type": "discrete", "domain": list(range(10, 150, 10)), "dimensionality": 1},
             {"name": "n_layer", "type": "discrete", "domain": list(range(1, 4, 1)), "dimensionality": 1},
             {"name": "batch_size", "type": "discrete", "domain": list(range(100, 1001, 100)), "dimensionality": 1},
+            # NOTE: Comment out the below line if don't want to sweep through all types of GeneralRNN at once:
             {"name": "model_type_id", "type": "discrete", "domain": [0, 1, 2], "dimensionality": 1},
             {"name": "learning_rate", "type": "continuous", "domain": [0.0005, 0.01], "dimensionality": 1},
         ]

@@ -9,6 +9,7 @@ jupyter/
 docs/_build/
 
 app/wd
+app/config.json
 
 tmp/
 
@@ -19,5 +20,8 @@ datasets/data/**/*.npz
 
 results/
 experiments/output
+experiments/cache
 
 .flake8
+
+_NOTE.txt
