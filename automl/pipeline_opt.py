@@ -84,8 +84,8 @@ class PipelineOpt:
                 "epoch": 2,
                 "model_type": model_name,
                 "learning_rate": 0.001,
-                "static_mode": "Concatenate",
-                "time_mode": "Concatenate",
+                "static_mode": "concatenate",
+                "time_mode": "concatenate",
                 "verbose": False,
             }
 

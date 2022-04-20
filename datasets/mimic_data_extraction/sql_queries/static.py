@@ -9,7 +9,11 @@ SELECT (extract(DAY FROM ad.admittime - p.dob)
             + extract(MINUTE FROM ad.admittime - p.dob) / 24 / 60
             ) / 365.25
             AS age, ad.subject_id, ad.HADM_ID, ad.ETHNICITY, ad.DIAGNOSIS, ad.ADMISSION_TYPE
-            , ie.icustay_id
+            , ie.icustay_id, 
+            CASE
+              WHEN p.gender = 'M' THEN 1
+              ELSE 0
+            END AS gender_male
       FROM admissions ad
       INNER JOIN patients p ON p.subject_id = ad.subject_id
       INNER JOIN icustays ie ON ie.subject_id = ad.subject_id

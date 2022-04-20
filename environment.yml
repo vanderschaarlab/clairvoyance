@@ -21,13 +21,14 @@ dependencies:
   - pip:
     - astroid==2.5.1
     - dash==1.19.0
-    - dash-bootstrap-components==0.11.3
+    - dash-bootstrap-components==0.13.1
     - dataclasses==0.6
     - future==0.18.2
     - keras==2.3.1
     - keras-tcn==3.3.1
     - missingpy==0.2.0
     - numpy==1.18.5
+    - psycopg2==2.9.1
     - scikit-learn==0.23.2
     - tensorflow==1.15.5
     - tensorflow-gpu==1.15.5
