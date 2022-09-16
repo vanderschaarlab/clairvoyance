@@ -32,3 +32,4 @@ dependencies:
     - scikit-learn==0.23.2
     - tensorflow==1.15.5
     - tensorflow-gpu==1.15.5
+    - protobuf==3.20.*
